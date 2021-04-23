@@ -1,5 +1,6 @@
 package AoC2020;
 
+import AoC2020.Day16.Day16Task1;
 import org.junit.jupiter.api.Test;
 
 import java.util.*;

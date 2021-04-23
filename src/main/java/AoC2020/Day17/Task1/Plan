@@ -1,0 +1,17 @@
+Task 1:
+6 Zyklen durchlaufen lassen und dann die aktiven Cubes zählen
+
+    * Input verarbeiten
+    * Standardeinstellungen aufsetzen (z-1 und z1 beides auf inactive)
+    *6 Zyklen durchlaufen
+    * Aktive Cubes zählen
+
+
+    Zyklenalgorithmus:
+    -Aktuellen Stand abspeichern
+    -Alle Würfel durchgehen:
+        -Nachbarn des aktuellen Würfels überprüfen und Anzahl aktiver Nachbarn (Alter Stand) notieren
+        -If a cube is active and exactly 2 or 3 of its neighbors are also active, the cube remains active. Otherwise, the cube becomes inactive.
+        -If a cube is inactive but exactly 3 of its neighbors are active, the cube becomes active. Otherwise, the cube remains inactive.
+        -"Neuen" Würfelstand festhalten (nicht in alten Stand überschreiben)
+    -Aktuellen Stand mit neuen Stand überschreiben
