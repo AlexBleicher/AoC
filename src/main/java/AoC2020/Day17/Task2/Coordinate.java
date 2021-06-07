@@ -1,17 +1,25 @@
 package AoC2020.Day17.Task2;
 
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
+
 public class Coordinate {
 
+    private int w;
     private int x;
     private int y;
     private int z;
-    private int w;
 
-    public Coordinate(int x, int y, int z, int w) {
+    public Coordinate(int w, int x, int y, int z) {
+        this.w = w;
         this.x = x;
         this.y = y;
         this.z = z;
-        this.w = w;
+    }
+
+    public int getW() {
+        return w;
     }
 
     public int getX() {
@@ -26,24 +34,37 @@ public class Coordinate {
         return z;
     }
 
-    public int getW() {
-        return w;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Coordinate)) return false;
+        Coordinate that = (Coordinate) o;
+        return getW() == that.getW() &&
+                getX() == that.getX() &&
+                getY() == that.getY() &&
+                getZ() == that.getZ();
     }
 
-    public boolean isEqual(Coordinate coordinate) {
-        return (x == coordinate.getX() && y == coordinate.getY() && z == coordinate.getZ() && w == coordinate.getW());
+    @Override
+    public int hashCode() {
+        return Objects.hash(getW(), getX(), getY(), getZ());
     }
 
-    public boolean isNeighbor(Coordinate otherCoordinate) {
-        if ((otherCoordinate.getX() == x || otherCoordinate.getX() == x - 1 || otherCoordinate.getX() == x + 1) &&
-                (otherCoordinate.getY() == y || otherCoordinate.getY() == y - 1 || otherCoordinate.getY() == y + 1) &&
-                (otherCoordinate.getZ() == z || otherCoordinate.getZ() == z - 1 || otherCoordinate.getZ() == z + 1) &&
-                (otherCoordinate.getW() == w || otherCoordinate.getW() == w - 1 || otherCoordinate.getW() == w + 1) &&
-                !isEqual(otherCoordinate)) {
-            return true;
-
+    public Set<Coordinate> getAllNeighbors() {
+        Set<Coordinate> allNeighbors = new HashSet<>();
+        for (int w = this.w - 1; w <= this.w + 1; w++) {
+            for (int x = this.x - 1; x <= this.x + 1; x++) {
+                for (int y = this.y - 1; y <= this.y + 1; y++) {
+                    for (int z = this.z - 1; z <= this.z + 1; z++) {
+                        Coordinate neighbor = new Coordinate(w, x, y, z);
+                        if (!neighbor.equals(this)) {
+                            allNeighbors.add(neighbor);
+                        }
+                    }
+                }
+            }
         }
-        return false;
+        return allNeighbors;
     }
-}
 
+}

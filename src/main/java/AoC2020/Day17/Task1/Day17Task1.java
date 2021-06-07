@@ -19,15 +19,15 @@ public class Day17Task1 {
     public static List<Cube> cycle() {
         List<Cube> newState = new ArrayList<>();
         for (Cube cube : cubeList) {
-            Cube newCube = new Cube(cube.isStatus(), cube.getCoordinate());
+            Cube newCube = new Cube(cube.isAlive(), cube.getCoordinate());
             int amountOfActiveNeighbors = cube.getAmountOfActiveNeighbors();
-            if (cube.isStatus()) {
+            if (cube.isAlive()) {
                 if (!(amountOfActiveNeighbors == 2 || amountOfActiveNeighbors == 3)) {
-                    newCube.setStatus(false);
+                    newCube.setAlive(false);
                 }
-            } else if (!cube.isStatus()) {
+            } else if (!cube.isAlive()) {
                 if (amountOfActiveNeighbors == 3) {
-                    newCube.setStatus(true);
+                    newCube.setAlive(true);
                 }
             }
             newState.add(newCube);
@@ -38,7 +38,7 @@ public class Day17Task1 {
     public static int countActiveCubes() {
         int amountOfActiveCubes = 0;
         for (Cube cube : cubeList) {
-            if (cube.isStatus()) {
+            if (cube.isAlive()) {
                 amountOfActiveCubes++;
             }
         }

@@ -3,3 +3,13 @@ Aufgabenstellung wird um eine vierte Dimension w erweitert
 -Erweiterung der Koordinate um vierte Stelle
 -Veränderung der inputverabeitung und Nachbarerstellung
 -Zyklenablauf und Nachzählung wie bei Task 1
+
+
+
+Fahrplan:
+-Zelle besteht aus Koordinaten
+-Set aus allen aktiven Zellen (equals und hash müssen überschrieben sein)
+-Zyklusalgorithmus:
+    *Neues Set = Welche Zellen sind für den nächsten Zyklus relevant (alle aktiven und deren Nachbarn)
+    *Für jede von diesen Zellen den neuen Status berechnen
+    *Neuen Status abspeichern (Alle neuen aktiven Zellen in Set abspeichern, die inaktiven raushauen. Oder: Set überschreiben)

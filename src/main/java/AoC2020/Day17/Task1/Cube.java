@@ -5,21 +5,21 @@ import java.util.Set;
 
 public class Cube {
 
-    private boolean status;
+    private boolean alive;
     private Coordinate coordinate;
     private Set<Cube> neighbors = new HashSet<>();
 
     public Cube(boolean status, Coordinate coordinate) {
-        this.status = status;
+        this.alive = status;
         this.coordinate = coordinate;
     }
 
-    public boolean isStatus() {
-        return status;
+    public boolean isAlive() {
+        return alive;
     }
 
-    public void setStatus(boolean status) {
-        this.status = status;
+    public void setAlive(boolean status) {
+        this.alive = status;
     }
 
     public void addNeighbor(Cube cube) {
@@ -39,13 +39,13 @@ public class Cube {
     }
 
     public String getCubeInfo() {
-        return ("X: " + coordinate.getX() + " Y: " + coordinate.getY() + " Z: " + coordinate.getZ() + " Status: " + status);
+        return ("X: " + coordinate.getX() + " Y: " + coordinate.getY() + " Z: " + coordinate.getZ() + " Status: " + alive);
     }
 
     public int getAmountOfActiveNeighbors() {
         int amountOfActiveNeighbors = 0;
         for (Cube neighbor : neighbors) {
-            if (neighbor.isStatus()) {
+            if (neighbor.isAlive()) {
                 amountOfActiveNeighbors++;
             }
         }

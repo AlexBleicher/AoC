@@ -85,7 +85,7 @@ public class Input {
                 }
                 allCubesAtThisYAndZ.sort(Comparator.comparing(Cube::getX));
                 for (Cube cube : allCubesAtThisYAndZ) {
-                    if (cube.isStatus()) {
+                    if (cube.isAlive()) {
                         System.out.print("#");
                     } else
                         System.out.print(".");
