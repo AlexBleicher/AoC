@@ -9,14 +9,14 @@ public class Day17Task1 {
     private static List<Cube> cubeList = input.getAllCubes();
 
     public static void main(String[] args) {
+        setNeighbors();
         for (int i = 0; i < 6; i++) {
-            setNeighbors();
-            cubeList = cycle();
+            cycle();
         }
         System.out.println(countActiveCubes());
     }
 
-    public static List<Cube> cycle() {
+    public static void cycle() {
         List<Cube> newState = new ArrayList<>();
         for (Cube cube : cubeList) {
             Cube newCube = new Cube(cube.isAlive(), cube.getCoordinate());
@@ -32,7 +32,9 @@ public class Day17Task1 {
             }
             newState.add(newCube);
         }
-        return newState;
+        for (Cube cube : cubeList) {
+            cube.setAlive(newState.get(cubeList.indexOf(cube)).isAlive());
+        }
     }
 
     public static int countActiveCubes() {
