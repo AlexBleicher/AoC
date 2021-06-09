@@ -1,0 +1,10 @@
+Regeln:
+    *Klammern zuerst
+    *Punkt vor Strich gilt nicht mehr
+    *Rechnung von links nach Rechts (ausgenommen Klammern)
+
+Aufgabe: Ergebnise jeder Zeile miteinander addieren
+
+*Ergebnise jeder Zeile ausrechnen
+    #Von links nach rechts vorgehen. Beide Faktoren überprüfen, ob sie in Klammern stehen. Wenn ja, die Klammer zuerst ausrechnen.
+*Ergebnise addieren
