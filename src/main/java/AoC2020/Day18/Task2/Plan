@@ -1,0 +1,9 @@
+Aufgabe: Ergebnise aller Zeilen miteinander addieren unter Beachtung der neuen Regeln
+
+Regeln: *Klammern zuerst
+        *Dann +
+        *Dann *
+
+Vorgehen:
+Ergebnis einer Zeile ausrechnen.
+Alle Ergebnise addieren.
