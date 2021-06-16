@@ -1,6 +1,7 @@
 package AoC2020.Day18.Task2;
 
 import AoC2020.Day18.Task1.Input;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
 
@@ -8,13 +9,7 @@ public class Task2 {
 
     private static List<String> allLines = new Input().parseInput();
 
-    //private static List<String> allLines = new ArrayList<>();
     public static void main(String[] args) {
-        /*allLines.add("1 + (2 * 3) + (4 * (5 + 6))");
-        allLines.add("2 * 3 + (4 * 5)");
-        allLines.add("5 + (8 * 3 + 9 + 3 * 4 * 3)");
-        allLines.add("5 * 9 * (7 * 3 * 3 + 9 * 3 + (8 + 6 * 4))");
-        allLines.add("((2 + 4 * 9) * (6 + 9 * 8 + 6) + 6) + 2 + 4 * 2");*/
         System.out.print(calculateResultOfAllLines());
     }
 
@@ -57,7 +52,8 @@ public class Task2 {
                 long rightFactor = Long.parseLong(allNumbersAndFactors[i + 1]);
                 String plusTerm = leftFactor + " + " + rightFactor;
                 long resultOfPlus = leftFactor + rightFactor;
-                return replacePlusInLine(input.replace(plusTerm, "" + resultOfPlus));
+                String nextInput = StringUtils.replaceOnce(input, plusTerm, "" + resultOfPlus);
+                return replacePlusInLine(nextInput);
             }
         }
         return input;
