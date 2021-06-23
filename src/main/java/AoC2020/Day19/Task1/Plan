@@ -1,0 +1,13 @@
+Aufgabe: Anzahl gültiger Regeln ermittlen
+
+Vorgehen:
+    *Input verarbeiten
+        1. Regeln erstellen
+            #Map von Regelnummer als Key und Subregeln/Zeichen als Value
+        2. Zu prüfenden Input erstellen
+    *Zu prüfenden Input durchgehen und überprüfen
+        (1. Gültige Zeichenfolgen erstellen (Regeln durchgehen)
+        2. Überprüfen ob Zeichenfolge in gültigen Zeichenfolgen enthalten ist)=> Braucht zu viel Speicher
+        1.Inputzeile Buchstabe für Buchstabe durchgehen
+        2.Überprüfen ob der Buchstabe für diese Stelle gültig ist. Wenn nicht -> breaken
+    *Anzahl gültiger Regeln ausgeben

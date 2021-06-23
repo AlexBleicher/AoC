@@ -1,0 +1,19 @@
+Alle Validen Einträge mit neuen Regeln zählen
+
+ * Valide Einträge nach Task 1 zählen und aus dem weiteren Input herausnehmen
+ * Kürzere Einträge aus dem weiteren Input nehmen
+ * Restlichen Input überprüfen
+    +Buchstabe für Buchstabe überprüfen
+    +Erst ohne Loops
+    +Wenn ohne Loop nicht funktioniert systematisch mit einer Loop probieren
+    +Abbruch einer Loop:-Wenn noch nicht alle nötigen Regeln abgeschlossen aber keine Buchstaben mehr vorhanden sind
+                        -Wenn falscher Buchstabe auftaucht
+    +Profit!
+
+    Überprüfung mit Loop algorithmus:
+    +
+
+
+
+*Regel 8 ist mit Loop zu prüfen wenn Regel 11 nicht zutrifft nachdem Regel 8 zutraf.
+*Wenn Regel 8 mit Loop nicht zu einer Lösung führt, dann muss überprüft werden ob eventuell Regel 11 mit einer Loop zu einer Lösung führt
