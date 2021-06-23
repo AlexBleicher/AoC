@@ -19,20 +19,17 @@ public class Task2 {
             line = replaceBracketInLine(line);
             line = replacePlusInLine(line);
             long result = calculateTimes(line);
-            System.out.println(result);
             resultOfAllLines += result;
-            System.out.println(resultOfAllLines);
         }
         return resultOfAllLines;
     }
 
     public static String replaceBracketInLine(String input) {
-        String bracket = "";
         for (int i = 0; i < input.length(); i++) {
             if (input.charAt(i) == ')') {
                 for (int j = i - 1; j >= 0; j--) {
                     if (input.charAt(j) == '(') {
-                        bracket = input.substring(j, i + 1);
+                        String bracket = input.substring(j, i + 1);
                         String bracketForCalculation = input.substring(j + 1, i);
                         bracketForCalculation = replacePlusInLine(bracketForCalculation);
                         long resultofBracket = calculateTimes(bracketForCalculation);
@@ -43,6 +40,7 @@ public class Task2 {
         }
         return input;
     }
+
 
     public static String replacePlusInLine(String input) {
         String[] allNumbersAndFactors = input.split(" ");
@@ -70,6 +68,3 @@ public class Task2 {
 
 
 }
-
-
-
