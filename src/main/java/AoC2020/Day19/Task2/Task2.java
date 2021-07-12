@@ -16,9 +16,6 @@ public class Task2 {
         List<String> allValidLinesWithoutLoop = filterAllValidLines(allLines, allRules);
         List<String> restLinesPossiblyValid = filterAllTooShortRestLines(allValidLinesWithoutLoop, allLinesTask2);
         List<String> allRestValidWithLoop = filterAllValidLines(restLinesPossiblyValid, allRulesUpdated);
-        for (String s : allRestValidWithLoop) {
-            System.out.println(s);
-        }
         int amountOfValids = allValidLinesWithoutLoop.size() + allRestValidWithLoop.size();
         System.out.println(amountOfValids);
     }
@@ -32,7 +29,7 @@ public class Task2 {
     public static List<String> filterAllTooShortRestLines(List<String> allValidLines, List<String> completeInput) {
         return completeInput.stream()
                 .filter(line -> !allValidLines.contains(line))
-                .filter(line -> !(line.length() <= allValidLines.get(0).length()))
+                .filter(line -> (line.length() > allValidLines.get(0).length()))
                 .collect(Collectors.toList());
     }
 
@@ -41,7 +38,7 @@ public class Task2 {
             EvaluationResult result = meetsRule(line, rulesUsed.get(0), rulesUsed);
             return (result.isChecksOut() && result.getWordAfterEvaluation().length() == 0);
         } else {
-            EvaluationResult result = checkRulesWithLoop(line, 0);
+            EvaluationResult result = checkRulesWithLoop(line);
             return result.isChecksOut() && result.getWordAfterEvaluation().length() == 0;
         }
     }
@@ -70,8 +67,8 @@ public class Task2 {
     public static EvaluationResult checksSubrules(String word, String rules, Map<Integer, String> rulesUsed) {
         String[] subRules = rules.split(" ");
         String wordAfter = word;
-        for (int i = 0; i < subRules.length; i++) {
-            EvaluationResult result = meetsRule(wordAfter, rulesUsed.get(Integer.parseInt(subRules[i])), rulesUsed);
+        for (String subRule : subRules) {
+            EvaluationResult result = meetsRule(wordAfter, rulesUsed.get(Integer.parseInt(subRule)), rulesUsed);
             if (!result.isChecksOut()) {
                 return new EvaluationResult(word, false);
             }
@@ -80,7 +77,7 @@ public class Task2 {
         return new EvaluationResult(wordAfter, true);
     }
 
-    public static EvaluationResult checkRulesWithLoop(String word, int i) {
+    public static EvaluationResult checkRulesWithLoop(String word) {
         EvaluationResult resultOfCheck = meetsRule(word, allRulesUpdated.get(8), allRulesUpdated);
         if (!resultOfCheck.isChecksOut()) {
             return resultOfCheck;
@@ -88,7 +85,7 @@ public class Task2 {
             String wordInEvaluation = resultOfCheck.getWordAfterEvaluation();
             resultOfCheck = meetsRule(wordInEvaluation, allRulesUpdated.get(11), allRulesUpdated);
             if (!resultOfCheck.isChecksOut()) {
-                return checkRulesWithLoop(wordInEvaluation, i + 1);
+                return checkRulesWithLoop(wordInEvaluation);
             }
         }
         return resultOfCheck;

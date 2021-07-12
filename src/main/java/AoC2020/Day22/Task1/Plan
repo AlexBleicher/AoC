@@ -1,0 +1,9 @@
+Aufgabe: Eine Runde Combat spielen. Ergebnisscore ausrechnen
+
+Lösung:
+1. Input in 2 Kartenstapel aufteilen
+2. Runde spielen
+    * Oberste Karte von beiden Stapeln vergleichen. Höhere Karte gewinnt
+    * Beide Karten zu gewinnendem Stapel hinzufügen. Gewinnerkarte zuerst
+    * Wiederhole, bis ein Stapel leer ist
+3. Siegerkartenstapel zu Score umrechnen
