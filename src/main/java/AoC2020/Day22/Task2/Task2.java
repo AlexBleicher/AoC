@@ -1,37 +1,46 @@
 package AoC2020.Day22.Task2;
 
-import java.util.*;
+import java.util.ArrayDeque;
+import java.util.Deque;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Task2 {
 
     private static Input input = new Input();
-    private static Set<List<Deque<Integer>>> previousDecks = new HashSet<>();
+    private static Deque<Integer> playerDeck1 = input.getDeck(0);
+    private static Deque<Integer> playerDeck2 = input.getDeck(1);
 
     public static void main(String[] args) {
-        Deque<Integer> deckPlayer1 = input.getDeck(0);
-        Deque<Integer> deckPlayer2 = input.getDeck(1);
-        Deque<Integer> winner = getWinner(deckPlayer1, deckPlayer2, deckPlayer1.size(), deckPlayer2.size());
+        Deque<Integer> winner = calculateWinner(playerDeck1, playerDeck2, playerDeck1.size(), playerDeck2.size(), false);
+        System.out.println(winner);
         System.out.println(calculateScore(winner));
     }
 
-    public static Deque<Integer> getWinner(Deque<Integer> deckPlayer1, Deque<Integer> deckPlayer2, int size1, int size2) {
-        Deque<Integer> deck1 = deckPlayer1;
-        Deque<Integer> deck2 = deckPlayer2;
-        deck1 = trimDeck(deck1, size1);
-        deck2 = trimDeck(deck2, size2);
-        List<Deque<Integer>> bothDecks = new ArrayList();
-        bothDecks.add(deck1);
-        bothDecks.add(deck1);
-        if (previousDecks.contains(bothDecks)) {
-            return deck1;
-        } else {
-            previousDecks.add(bothDecks);
-            while (!deck1.isEmpty() && !deck2.isEmpty()) {
-                int card1 = deck1.poll();
-                int card2 = deck2.poll();
+    public static Deque<Integer> calculateWinner(Deque<Integer> d1, Deque<Integer> d2, int size1, int size2, boolean isSubRound) {
+
+        final Deque<Integer> deck1 = new ArrayDeque<>(d1);
+        final Deque<Integer> deck2 = new ArrayDeque<>(d2);
+
+        while (deck1.size() > size1) {
+            deck1.removeLast();
+        }
+
+        while (deck2.size() > size2) {
+            deck2.removeLast();
+        }
+        while (deck1.size() != 0 && deck2.size() != 0) {
+            final Set<String> previousDecks = new HashSet<>();
+            String bothDecks = deck1.toString() + "|" + deck2.toString();
+            if (previousDecks.contains(bothDecks)) {
+                return d1;
+            } else {
+                previousDecks.add(bothDecks);
+                int card1 = deck1.removeFirst();
+                int card2 = deck2.removeFirst();
                 if (deck1.size() >= card1 && deck2.size() >= card2) {
-                    Deque<Integer> winner = getWinner(deck1, deck2, card1, card2);
-                    if (winner == deck1) {
+                    Deque<Integer> winner = calculateWinner(deck1, deck2, card1, card2, true);
+                    if (winner.equals(deck1)) {
                         deck1.add(card1);
                         deck1.add(card2);
                     } else {
@@ -48,22 +57,18 @@ public class Task2 {
                     }
                 }
             }
+        }
+        if (!isSubRound) {
             return deck2.isEmpty() ? deck1 : deck2;
         }
-    }
+        return deck2.isEmpty() ? d1 : d2;
 
-    public static Deque<Integer> trimDeck(Deque<Integer> deck, int size) {
-        while (deck.size() > size) {
-            deck.removeLast();
-        }
-        return deck;
     }
 
     public static long calculateScore(Deque<Integer> deck) {
         long score = 0;
 
         for (int multiplier = deck.size(); multiplier >= 1; multiplier--) {
-            System.out.println(score);
             score += (long) deck.poll() * multiplier;
         }
 
