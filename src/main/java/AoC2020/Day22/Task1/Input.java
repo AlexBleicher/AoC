@@ -1,7 +1,7 @@
 package AoC2020.Day22.Task1;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.ArrayDeque;
+import java.util.Deque;
 
 public class Input {
 
@@ -61,9 +61,9 @@ public class Input {
 
     private String[] bothDecksString = input.split("\n\n");
 
-    public List<Integer> getDeck(int player) {
+    public Deque<Integer> getDeck(int player) {
         String[] deckStrings = bothDecksString[player].split("\n");
-        List<Integer> deck = new ArrayList<>();
+        Deque<Integer> deck = new ArrayDeque<>();
         for (int i = 1; i < deckStrings.length; i++) {
             deck.add(Integer.parseInt(deckStrings[i]));
         }

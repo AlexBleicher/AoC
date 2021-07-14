@@ -1,0 +1,11 @@
+Aufgabe: Rekursives Combat spielen und Score des Gewinners ausrechnen
+
+Lösung:
+* Input in 2 Kartenstapel aufteilen (diese 2 mal Abspeichern für extraRegel)
+* Runde spielen (mit Extraregeln)
+    1. Beide ziehen die oberste Karte
+    2. Beide überprüfen, ob sie mindestens so viele Karten im Stapel haben wie der Wert ihrer Karte ist
+        * Wenn Ja: Rekursion (Deck mit Anzahl der Karten, die die aktuelle Karte ausgibt)
+        * Wenn Nein: Normaler Rundenabgleich
+
+    Zusatz: Bei Beginn einer Runde wird überprüft ob die beiden Decks schon einmal so vorkamen (Wenn nicht: Abspeichern!)
