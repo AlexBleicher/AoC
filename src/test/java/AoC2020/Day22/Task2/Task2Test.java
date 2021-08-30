@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayDeque;
 import java.util.Deque;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 class Task2Test {
 
     @Test
@@ -22,13 +24,15 @@ class Task2Test {
         deck2.add(2);
         deck2.add(3);
 
-        /*Deque<Integer> test1 = testObject.calculateWinner(deck1, deck2);
-        Deque<Integer> test2 = testObject.calculateWinner(deck1, deck2);
+        Deque<Integer> test1 = testObject.calculateWinner(deck1, deck2, deck1.size(), deck2.size(), false);
+        Deque<Integer> test2 = testObject.calculateWinner(deck1, deck2, deck1.size(), deck2.size(), false);
 
 
-        assertEquals(test1, null);
+        System.out.println(test1);
+
+        assertEquals(test1, deck1);
         assertEquals(test2, deck1);
-    */
+
     }
 
 }

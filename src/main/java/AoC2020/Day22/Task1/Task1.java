@@ -23,24 +23,31 @@ public class Task1 {
     }
 
     public static void playTurn() {
-        int card1 = deckPlayer1.poll();
-        int card2 = deckPlayer2.poll();
-        if (card1 > card2) {
-            deckPlayer1.add(card1);
-            deckPlayer1.add(card2);
-        } else {
-            deckPlayer2.add(card2);
-            deckPlayer2.add(card1);
+        try {
+            int card1 = deckPlayer1.poll();
+            int card2 = deckPlayer2.poll();
+            if (card1 > card2) {
+                deckPlayer1.add(card1);
+                deckPlayer1.add(card2);
+            } else {
+                deckPlayer2.add(card2);
+                deckPlayer2.add(card1);
+            }
+        } catch (NullPointerException e) {
+            throw new RuntimeException("Deck war leer", e);
         }
     }
 
     public static long calculateScore(Deque<Integer> deck) {
         long score = 0;
+        try {
+            for (int multiplier = deck.size(); multiplier >= 1; multiplier--) {
+                score += (long) deck.poll() * multiplier;
+            }
 
-        for (int multiplier = deck.size(); multiplier >= 1; multiplier--) {
-            score += (long) deck.poll() * multiplier;
+            return score;
+        } catch (NullPointerException e) {
+            throw new RuntimeException("Deck war leer!", e);
         }
-
-        return score;
     }
 }

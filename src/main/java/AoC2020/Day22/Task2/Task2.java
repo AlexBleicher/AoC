@@ -20,17 +20,17 @@ public class Task2 {
     public static Deque<Integer> calculateWinner(Deque<Integer> d1, Deque<Integer> d2, int size1, int size2, boolean isSubRound) {
 
         final Deque<Integer> deck1 = new ArrayDeque<>(d1);
-        final Deque<Integer> deck2 = new ArrayDeque<>(d2);
-
         while (deck1.size() > size1) {
             deck1.removeLast();
         }
 
+        final Deque<Integer> deck2 = new ArrayDeque<>(d2);
         while (deck2.size() > size2) {
             deck2.removeLast();
         }
+
+        final Set<String> previousDecks = new HashSet<>();
         while (deck1.size() != 0 && deck2.size() != 0) {
-            final Set<String> previousDecks = new HashSet<>();
             String bothDecks = deck1.toString() + "|" + deck2.toString();
             if (previousDecks.contains(bothDecks)) {
                 return d1;
@@ -67,12 +67,15 @@ public class Task2 {
 
     public static long calculateScore(Deque<Integer> deck) {
         long score = 0;
+        try {
+            for (int multiplier = deck.size(); multiplier >= 1; multiplier--) {
+                score += (long) deck.poll() * multiplier;
+            }
 
-        for (int multiplier = deck.size(); multiplier >= 1; multiplier--) {
-            score += (long) deck.poll() * multiplier;
+            return score;
+        } catch (NullPointerException e) {
+            throw new RuntimeException("Deck war leer!");
         }
-
-        return score;
     }
 
 }
