@@ -7,7 +7,11 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="AdventOfCode" />
+        <module name="AoC2020" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="AoC2020" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
 </project>

@@ -18,28 +18,17 @@
     </properties>
 
     <dependencies>
-        <!--- hier ziehen wir externe Software rein -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
-            <version>5.7.0</version>
+            <version>5.8.0</version>
             <scope>test</scope>
         </dependency>
-
-        <dependency>
-            <groupId>org.assertj</groupId>
-            <artifactId>assertj-core</artifactId>
-            <version>3.18.0</version>
-            <scope>test</scope>
-        </dependency>
-
-
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
-            <version>3.8.1</version>
+            <version>3.1</version>
         </dependency>
-
     </dependencies>
 
 </project>
