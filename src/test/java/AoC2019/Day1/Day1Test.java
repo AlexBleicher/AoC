@@ -1,4 +1,4 @@
-package AoC2019.Day1.Task1;
+package AoC2019.Day1;
 
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;

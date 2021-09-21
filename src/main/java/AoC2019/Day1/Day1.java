@@ -1,4 +1,4 @@
-package AoC2019.Day1.Task1;
+package AoC2019.Day1;
 
 import java.util.ArrayList;
 
