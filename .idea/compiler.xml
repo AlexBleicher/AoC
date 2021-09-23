@@ -11,6 +11,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="AdventOfCode" target="1.8" />
       <module name="AoC2020" target="1.8" />
     </bytecodeTargetLevel>
   </component>
