@@ -24,4 +24,19 @@ class Day4Test {
                 Arguments.of("153517-630395", 1729)
         );
     }
+
+    @ParameterizedTest
+    @MethodSource
+    void task2(String input, int expectedResult) {
+        Day4 testObject = new Day4(input);
+        int testResult = testObject.task2();
+
+        assertEquals(expectedResult, testResult);
+    }
+
+    public static Stream<Arguments> task2() {
+        return Stream.of(
+                Arguments.of("153517-630395", 1172)
+        );
+    }
 }

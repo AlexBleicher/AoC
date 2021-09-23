@@ -33,4 +33,25 @@ public class Password {
         }
         return false;
     }
+
+    public boolean hasLonelyDouble() {
+        char lastChar = ' ';
+        int amountOfSameChars = 1;
+        for (int i = 0; i < passwordAsString.length(); i++) {
+            char currentChar = passwordAsString.charAt(i);
+            if (lastChar == currentChar) {
+                amountOfSameChars++;
+            } else {
+                if (amountOfSameChars == 2) {
+                    return true;
+                }
+                amountOfSameChars = 1;
+            }
+            lastChar = currentChar;
+        }
+        if (amountOfSameChars == 2) {
+            return true;
+        }
+        return false;
+    }
 }
