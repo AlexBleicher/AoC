@@ -13,7 +13,7 @@ class CoordinateTest {
     @ParameterizedTest
     @MethodSource
     void calculatemanhattenDistance(int x, int y, int expectedResult) {
-        Coordinate testObject = new Coordinate(x, y);
+        Coordinate testObject = new Coordinate(x, y, 0);
         int testResult = testObject.calculateManhattanDistanceToOrigin();
 
         assertEquals(expectedResult, testResult);

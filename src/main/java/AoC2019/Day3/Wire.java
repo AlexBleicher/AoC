@@ -10,6 +10,7 @@ public class Wire {
         String[] wireSections = instructions.split(",");
         int x = 0;
         int y = 0;
+        int stepsNeeded = 0;
         for (String section : wireSections) {
             char direction = section.charAt(0);
             int distance = Integer.parseInt(section.substring(1));
@@ -30,7 +31,8 @@ public class Wire {
                     default:
                         throw new IllegalStateException("Das sollte hier nicht stehen!");
                 }
-                coordinates.add(new Coordinate(x, y));
+                stepsNeeded++;
+                coordinates.add(new Coordinate(x, y, stepsNeeded));
             }
         }
     }

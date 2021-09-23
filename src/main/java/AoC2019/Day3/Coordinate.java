@@ -6,10 +6,12 @@ public class Coordinate {
 
     private int x;
     private int y;
+    private int stepsNeeded;
 
-    public Coordinate(int x, int y) {
+    public Coordinate(int x, int y, int stepsNeeded) {
         this.x = x;
         this.y = y;
+        this.stepsNeeded = stepsNeeded;
     }
 
     public int getX() {
@@ -33,6 +35,14 @@ public class Coordinate {
             manhattanDistance += y;
         }
         return manhattanDistance;
+    }
+
+    public int getStepsNeeded() {
+        return stepsNeeded;
+    }
+
+    public void addStepsNeeded(int stepsNeededWire2) {
+        this.stepsNeeded += stepsNeededWire2;
     }
 
     @Override

@@ -14,12 +14,30 @@ public class Day3 {
     }
 
     public int task1() {
-        List<Coordinate> intersectionPoints = wire1.getCoordinates().stream()
-                .filter(wire2.getCoordinates()::contains)
-                .collect(Collectors.toList());
+        List<Coordinate> intersectionPoints = getIntersectionPoints();
         return intersectionPoints.stream()
                 .mapToInt(Coordinate::calculateManhattanDistanceToOrigin)
                 .min()
                 .orElseThrow(RuntimeException::new);
+    }
+
+    public int task2() {
+        List<Coordinate> intersectionPointsWithCombinedSteps = getIntersectionPoints();
+        intersectionPointsWithCombinedSteps.forEach(coordinate1 -> coordinate1.addStepsNeeded(
+                wire2.getCoordinates().stream()
+                        .filter(coordinate1::equals)
+                        .findFirst()
+                        .get()
+                        .getStepsNeeded()));
+        return intersectionPointsWithCombinedSteps.stream()
+                .mapToInt(Coordinate::getStepsNeeded)
+                .min()
+                .orElseThrow(RuntimeException::new);
+    }
+
+    public List<Coordinate> getIntersectionPoints() {
+        return wire1.getCoordinates().stream()
+                .filter(wire2.getCoordinates()::contains)
+                .collect(Collectors.toList());
     }
 }
