@@ -27,6 +27,8 @@ public class Day14 {
     public int part2(String input) {
         recipes.add(3);
         recipes.add(7);
+        System.out.println(input);
+        System.out.println(input.length());
         boolean scoreSequenceAppeared = false;
         while (!scoreSequenceAppeared) {
             generateNewRecipes(recipes.get(elveIndex1), recipes.get(elveIndex2));
