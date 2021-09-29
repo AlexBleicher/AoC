@@ -17,8 +17,8 @@ public class Day5 {
         int index = 0;
         int optcode = intcode.get(index) % 100;
         while (optcode != 99) {
-            int value1 = 0;
-            int value2 = 0;
+            int value1;
+            int value2;
             int modeValue1 = intcode.get(index) / 100 % 10;
             int modeValue2 = intcode.get(index) / 1000 % 10;
             int store = intcode.get(index + 3);
@@ -46,6 +46,36 @@ public class Day5 {
                     System.out.println(diagnosticCode);
                     index += 2;
                     break;
+                case (5):
+                    if ((modeValue1 == 1) ? (intcode.get(index + 1) != 0) : (intcode.get(intcode.get(index + 1)) != 0)) {
+                        index = (modeValue2 == 1 ? intcode.get(index + 2) : intcode.get(intcode.get(index + 2)));
+                    } else {
+                        index += 3;
+                    }
+                    break;
+                case (6):
+                    if ((modeValue1 == 1) ? (intcode.get(index + 1) == 0) : (intcode.get(intcode.get(index + 1)) == 0)) {
+                        index = (modeValue2 == 1 ? intcode.get(index + 2) : intcode.get(intcode.get(index + 2)));
+                    } else {
+                        index += 3;
+                    }
+                    break;
+                case (7):
+                    if ((modeValue1 == 1 ? intcode.get(index + 1) : intcode.get(intcode.get(index + 1))) < (modeValue2 == 1 ? intcode.get(index + 2) : intcode.get(intcode.get(index + 2)))) {
+                        intcode.set(store, 1);
+                    } else {
+                        intcode.set(store, 0);
+                    }
+                    index += 4;
+                    break;
+                case (8):
+                    if ((modeValue1 == 1 ? intcode.get(index + 1) : intcode.get(intcode.get(index + 1))) == (modeValue2 == 1 ? intcode.get(index + 2) : intcode.get(intcode.get(index + 2)))) {
+                        intcode.set(store, 1);
+                    } else {
+                        intcode.set(store, 0);
+                    }
+                    index += 4;
+                    break;
                 default:
                     throw new RuntimeException("Diese Zahl ist hier falsch!");
             }
@@ -71,6 +101,10 @@ public class Day5 {
     }
 
     public int task1(int inputValue) {
+        return runIntCode(inputValue);
+    }
+
+    public int task2(int inputValue) {
         return runIntCode(inputValue);
     }
 
