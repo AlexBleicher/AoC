@@ -46,4 +46,21 @@ class PasswordTest {
         );
     }
 
+    @ParameterizedTest
+    @MethodSource
+    void hasLonelyDouble(int input, boolean expectedResult) {
+        Password testObject = new Password(input);
+        boolean testResult = testObject.hasLonelyDouble();
+
+        assertEquals(expectedResult, testResult);
+    }
+
+    public static Stream<Arguments> hasLonelyDouble() {
+        return Stream.of(
+                Arguments.of(112233, true),
+                Arguments.of(123444, false),
+                Arguments.of(111122, true)
+        );
+    }
+
 }
