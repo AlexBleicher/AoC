@@ -69,7 +69,7 @@ public class Day5 {
                     index += 4;
                     break;
                 case (8):
-                    if ((modeValue1 == 1 ? intcode.get(index + 1) : intcode.get(intcode.get(index + 1))) == (modeValue2 == 1 ? intcode.get(index + 2) : intcode.get(intcode.get(index + 2)))) {
+                    if ((modeValue1 == 1 ? intcode.get(index + 1) : intcode.get(intcode.get(index + 1))).equals(modeValue2 == 1 ? intcode.get(index + 2) : intcode.get(intcode.get(index + 2)))) {
                         intcode.set(store, 1);
                     } else {
                         intcode.set(store, 0);
