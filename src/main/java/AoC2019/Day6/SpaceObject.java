@@ -22,6 +22,10 @@ public class SpaceObject {
         return 1 + directOrbit.getTotalAmountOfOrbits();
     }
 
+    public SpaceObject getDirectOrbit() {
+        return directOrbit;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
