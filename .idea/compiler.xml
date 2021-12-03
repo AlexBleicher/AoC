@@ -6,12 +6,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="AdventOfCode" />
+        <module name="AoC" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="AdventOfCode" target="1.8" />
-      <module name="AoC2020" target="1.8" />
+      <module name="AoC" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
