@@ -69,6 +69,7 @@ public class Day6 {
         return allPossibleTransfers;
     }
 
+
     public long task1() {
         long totalAmountOfOrbits = 0;
         for (SpaceObject spaceObject : allSpaceObjects) {

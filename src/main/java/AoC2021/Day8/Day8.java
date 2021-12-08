@@ -30,9 +30,9 @@ public class Day8 {
         return count;
     }
 
-    public int task2() {
+    public long task2() {
         List<Integer> allValues = getValuesOfOutput();
-        int sum = 0;
+        long sum = 0;
         for (Integer val : allValues) {
             sum += val;
         }
@@ -45,12 +45,12 @@ public class Day8 {
             String signalLine = numberSignals.get(i);
             Map<Integer, String> numberPattern = findNumberPattern(signalLine);
             String outputLine = output.get(i);
-            String[] outputValuesAsString = outputLine.split(" ");
-            String valueAsString = "";
+            String[] outputValuesAsString = outputLine.trim().split(" ");
+            StringBuilder valueAsString = new StringBuilder();
             for (String outputValue : outputValuesAsString) {
-                valueAsString += findCorrespondingValue(numberPattern, outputValue);
+                valueAsString.append(findCorrespondingValue(numberPattern, outputValue));
             }
-            allValues.add(Integer.parseInt(valueAsString));
+            allValues.add(Integer.parseInt(valueAsString.toString()));
         }
         return allValues;
     }
@@ -83,7 +83,7 @@ public class Day8 {
     }
 
     public int decideIf23Or5(String leftSide, String rightUp, String pattern) {
-        if (pattern.contains(leftSide)) {
+        if (pattern.contains(leftSide.substring(0, 1)) && pattern.contains(leftSide.substring(1))) {
             return 3;
         }
         int countOfLetters = 0;
@@ -93,13 +93,13 @@ public class Day8 {
             }
         }
         if (countOfLetters == 2) {
-            return 5;
+            return 2;
         }
-        return 2;
+        return 5;
     }
 
     public int decideIf06Or9(String leftSide, String rightUp, String pattern) {
-        if (!pattern.contains(leftSide)) {
+        if (!(pattern.contains(leftSide.substring(0, 1)) && pattern.contains(leftSide.substring(1)))) {
             return 6;
         }
         int countOfLetters = 0;
@@ -108,25 +108,52 @@ public class Day8 {
                 countOfLetters++;
             }
         }
-        if (countOfLetters == 2) {
+        if (countOfLetters == 4) {
             return 9;
         }
         return 0;
     }
 
-    public String findCorrespondingValue(Map<Integer, String> numberPatterns, String outputValue){
-        if(outputValue.length() == 2){
+    public String findCorrespondingValue(Map<Integer, String> numberPatterns, String outputValue) {
+        if (outputValue.length() == 2) {
             return "" + 1;
         }
-        if(outputValue.length() == 3){
+        if (outputValue.length() == 3) {
             return "" + 7;
         }
-        if(outputValue.length() == 4){
+        if (outputValue.length() == 4) {
             return "" + 4;
         }
-        if(outputValue.length() == 7){
+        if (outputValue.length() == 7) {
             return "" + 8;
         }
-        return ""; //Todo fertig implementieren
+        List<String> possiblePatterns = new ArrayList<>();
+        if (outputValue.length() == 5) {
+            possiblePatterns.add(numberPatterns.get(2));
+            possiblePatterns.add(numberPatterns.get(3));
+            possiblePatterns.add(numberPatterns.get(5));
+        } else if (outputValue.length() == 6) {
+            possiblePatterns.add(numberPatterns.get(0));
+            possiblePatterns.add(numberPatterns.get(6));
+            possiblePatterns.add(numberPatterns.get(9));
+        }
+        while (possiblePatterns.size() > 1) {
+            for (int i = 0; i < outputValue.length(); i++) {
+                for (int j = 0; j < possiblePatterns.size(); j++) {
+                    String possiblePattern = possiblePatterns.get(j);
+                    if (!possiblePattern.contains(outputValue.substring(i, i + 1))) {
+                        possiblePatterns.remove(possiblePattern);
+                    }
+                }
+                if (possiblePatterns.size() == 1) {
+                    for (Map.Entry<Integer, String> entry : numberPatterns.entrySet()) {
+                        if (entry.getValue().equals(possiblePatterns.get(0))) {
+                            return "" + entry.getKey();
+                        }
+                    }
+                }
+            }
+        }
+        return "";
     }
 }
