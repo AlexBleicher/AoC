@@ -15,17 +15,17 @@ public class Day14 {
         for (Rule rule : allRules) {
             amountOfRules.put(rule.getPair(), Long.parseLong("0"));
         }
-        for(int i=0; i<polymerTemplate.length(); i++){
+        for (int i = 0; i < polymerTemplate.length(); i++) {
             char currentChar = polymerTemplate.charAt(i);
-            if(amountOfLetters.containsKey(currentChar)){
-                amountOfLetters.replace(currentChar, amountOfLetters.get(currentChar), amountOfLetters.get(currentChar)+1);
-            } else{
+            if (amountOfLetters.containsKey(currentChar)) {
+                amountOfLetters.replace(currentChar, amountOfLetters.get(currentChar), amountOfLetters.get(currentChar) + 1);
+            } else {
                 amountOfLetters.put(currentChar, Long.parseLong("1"));
             }
         }
-        for(int i=0; i<polymerTemplate.length()-2; i++){
-            String currentSubstring = polymerTemplate.substring(i, i+2);
-            amountOfRules.replace(currentSubstring, amountOfRules.get(currentSubstring), amountOfRules.get(currentSubstring)+1);
+        for (int i = 0; i < polymerTemplate.length() - 1; i++) {
+            String currentSubstring = polymerTemplate.substring(i, i + 2);
+            amountOfRules.replace(currentSubstring, amountOfRules.get(currentSubstring), amountOfRules.get(currentSubstring) + 1);
         }
     }
 
@@ -44,16 +44,15 @@ public class Day14 {
             boolean hasRule = false;
             for (Rule rule : allRules) {
                 if (rule.getPair().equals(currentSubstring)) {
-                    if(i==0) {
+                    if (i == 0) {
                         polymerTemplateAfterStep += rule.getStringAfterInsertion();
-                    }
-                    else{
+                    } else {
                         polymerTemplateAfterStep += rule.getStringAfterInsertion().substring(1);
                     }
-                    hasRule =true;
+                    hasRule = true;
                 }
             }
-            if(!hasRule){
+            if (!hasRule) {
                 polymerTemplateAfterStep += currentSubstring;
             }
         }
@@ -78,26 +77,53 @@ public class Day14 {
         return max - min;
     }
 
-    public long task2(){
-        for(int i=0; i<40; i++){
-            insertionStep();
+    public long task2() {
+        for (int i = 0; i < 40; i++) {
+            insertionStepOptimized();
         }
-        return calculateScore();
+        return calculateScoreOptimized();
     }
 
-    public void insertionStepOptimized(){
-        for (Map.Entry<String, Long> ruleWithItsAmount : amountOfRules.entrySet()) {
-            if(ruleWithItsAmount.getValue()>0){
-                Rule correspondingRule = allRules.get(0);
-                for (Rule rule : allRules) {
-                    if(rule.getPair().equals(ruleWithItsAmount.getKey())){
-                        correspondingRule = rule;
-                        break;
-                    }
-                }
-                String insertionString=correspondingRule.getStringAfterInsertion();
+    public void insertionStepOptimized() {
+        Map<String, Long> temp = new HashMap<>(amountOfRules);
+        for (Rule rule : allRules) {
+            String newRule1 = rule.getStringAfterInsertion().substring(0, 2);
+            String newRule2 = rule.getStringAfterInsertion().substring(1);
+            char addedLetter = rule.getStringAfterInsertion().charAt(1);
+            long amountOfRule = amountOfRules.get(rule.getPair());
+            addRule(temp, newRule1, amountOfRule);
+            addRule(temp, newRule2, amountOfRule);
+            addRule(temp, rule.getPair(), -amountOfRule);
+            addAmountToLetter(addedLetter, amountOfRule);
+        }
+        amountOfRules = temp;
+    }
 
+    public void addRule(Map<String, Long> temp, String rule, long amountOfRule) {
+
+        temp.replace(rule, temp.get(rule), temp.get(rule) + amountOfRule);
+
+    }
+
+    public void addAmountToLetter(char letterInsertet, long amountOfrule) {
+        if (amountOfLetters.containsKey(letterInsertet)) {
+            amountOfLetters.replace(letterInsertet, amountOfLetters.get(letterInsertet), amountOfLetters.get(letterInsertet) + amountOfrule);
+        } else {
+            amountOfLetters.put(letterInsertet, amountOfrule);
+        }
+    }
+
+    public long calculateScoreOptimized() {
+        long max = 0;
+        long min = -1;
+        for (Map.Entry<Character, Long> entry : amountOfLetters.entrySet()) {
+            long entryValue = entry.getValue();
+            if (max < entryValue) {
+                max = entryValue;
+            } else if (min == -1 || min > entryValue) {
+                min = entryValue;
             }
         }
+        return max - min;
     }
 }

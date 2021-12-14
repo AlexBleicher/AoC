@@ -6,20 +6,20 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class Day14Test {
 
     @ParameterizedTest
     @MethodSource
-    void task1(String input, long expectedResult){
+    void task1(String input, long expectedResult) {
         Day14 testObject = new Day14(input);
         long result = testObject.task1();
 
         assertEquals(expectedResult, result);
     }
 
-    static Stream<Arguments> task1(){
+    static Stream<Arguments> task1() {
         return Stream.of(
                 Arguments.of("NNCB\n" +
                         "\n" +
@@ -140,19 +140,20 @@ class Day14Test {
                         "BC -> C\n" +
                         "VV -> S\n" +
                         "OS -> F\n" +
-                        "NF -> B",0)
+                        "NF -> B", 0)
         );
     }
+
     @ParameterizedTest
     @MethodSource
-    void task2(String input, long expectedResult){
+    void task2(String input, long expectedResult) {
         Day14 testObject = new Day14(input);
         long result = testObject.task2();
 
         assertEquals(expectedResult, result);
     }
 
-    static Stream<Arguments> task2(){
+    static Stream<Arguments> task2() {
         return Stream.of(
                 Arguments.of("NNCB\n" +
                         "\n" +
@@ -273,7 +274,7 @@ class Day14Test {
                         "BC -> C\n" +
                         "VV -> S\n" +
                         "OS -> F\n" +
-                        "NF -> B",0)
+                        "NF -> B", 0)
         );
     }
 }

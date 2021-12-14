@@ -10,9 +10,9 @@ public class Rule {
         this.letterToInsert = letterToInsert;
     }
 
-    public String getStringAfterInsertion(){
+    public String getStringAfterInsertion() {
         String output = "";
-        output += pair.substring(0,1);
+        output += pair.substring(0, 1);
         output += letterToInsert;
         output += pair.substring(1);
         return output;
