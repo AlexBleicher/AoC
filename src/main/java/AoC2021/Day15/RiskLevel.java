@@ -7,19 +7,13 @@ public class RiskLevel {
 
     private int x;
     private int y;
-    private int value;
-    private List<RiskLevel> neighbors = new ArrayList<>();
+    private int risk;
+    public List<RiskLevel> neighbors = new ArrayList<>();
 
-    public RiskLevel(int x, int y, int value) {
+    public RiskLevel(int x, int y, int risk) {
         this.x = x;
         this.y = y;
-        this.value = value;
-    }
-
-    public void addNeighbor(RiskLevel riskLevel) {
-        if (!neighbors.contains(riskLevel) && ((riskLevel.getX() == x + 1 || riskLevel.getX() == x - 1) && (riskLevel.getY() == y) || ((riskLevel.getY() == y + 1 || riskLevel.getY() == y - 1) && riskLevel.getX() == x))) {
-            neighbors.add(riskLevel);
-        }
+        this.risk = risk;
     }
 
     public int getX() {
@@ -30,11 +24,7 @@ public class RiskLevel {
         return y;
     }
 
-    public int getValue() {
-        return value;
-    }
-
-    public List<RiskLevel> getNeighbors() {
-        return neighbors;
+    public int getRisk() {
+        return risk;
     }
 }

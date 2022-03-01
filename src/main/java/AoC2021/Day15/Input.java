@@ -5,26 +5,31 @@ import java.util.List;
 
 public class Input {
 
-    private String input;
+    public String input;
 
     public Input(String input) {
         this.input = input;
     }
 
-    public List<RiskLevel> splitInput(){
-        String[] inputSplit = input.split("\n");
-        List<RiskLevel> result = new ArrayList<>();
-        for(int y=0; y<inputSplit.length; y++){
-            String inputLine = inputSplit[y];
-            for(int x=0; x<inputLine.length(); x++){
-                result.add(new RiskLevel(x, y, Integer.parseInt(inputLine.substring(x,x+1))));
+    public List<RiskLevel> parseInput() {
+        List<RiskLevel> returnValue = new ArrayList<>();
+        String[] inputLines = input.split("\n");
+        int y = 0;
+        for (String inputLine : inputLines) {
+            for (int x = 0; x < inputLine.length(); x++) {
+                RiskLevel newRiskLevel = new RiskLevel(x, y, Integer.parseInt("" + inputLine.charAt(x)));
+                returnValue.add(newRiskLevel);
+            }
+            y++;
+        }
+        for (RiskLevel riskLevel : returnValue) {
+            for (RiskLevel possibleNeighbor : returnValue) {
+                if (((possibleNeighbor.getX() == riskLevel.getX() - 1 || possibleNeighbor.getX() == riskLevel.getX() + 1) && possibleNeighbor.getY() == riskLevel.getY()) ||
+                        (possibleNeighbor.getY() == riskLevel.getY() - 1 || possibleNeighbor.getY() == riskLevel.getY() + 1) && possibleNeighbor.getX() == riskLevel.getX()) {
+                    riskLevel.neighbors.add(possibleNeighbor);
+                }
             }
         }
-        for (RiskLevel riskLevel : result) {
-            for (RiskLevel level : result) {
-                riskLevel.addNeighbor(level);
-            }
-        }
-        return result;
+        return returnValue;
     }
 }

@@ -5,57 +5,62 @@ import java.util.List;
 
 public class Day15 {
 
-    private List<RiskLevel> riskLevelList;
+    public List<RiskLevel> cave;
 
     public Day15(String input) {
-        riskLevelList = new Input(input).splitInput();
+        Input parser = new Input(input);
+        cave = parser.parseInput();
     }
 
-    public int task1() {
-        return lowestRiskPath(riskLevelList.get(0));
+    public int solveTask1() {
+        RiskLevel start = cave.get(0);
+        RiskLevel end = cave.get(cave.size() - 1);
+        return calculateShortestWay(start, end);
     }
 
-    public int lowestRiskPath(RiskLevel start) {
+    public int calculateShortestWay(RiskLevel start, RiskLevel end) {
         List<RiskLevel> queue = new ArrayList<>();
-        List<Integer> distance = new ArrayList<>();
-        List<RiskLevel> path = new ArrayList<>();
-        initialise(queue, distance, path, start);
+        List<RiskLevel> predecesor = new ArrayList<>();
+        List<Integer> risk = new ArrayList<>();
+        initialise(cave, start, queue, predecesor, risk);
         while (!queue.isEmpty()) {
-            RiskLevel u = getRiskLevelWithLowestDistance(distance, queue);
-            queue.remove(u);
-            for (RiskLevel neighbor : u.getNeighbors()) {
+            RiskLevel u = findLowest(queue, risk);
+            queue.remove(queue.indexOf(u));
+            for (RiskLevel neighbor : u.neighbors) {
                 if (queue.contains(neighbor)) {
-                    update_Distance(u, neighbor, distance, path);
+                    update_risk(neighbor, u, risk, predecesor);
                 }
             }
         }
-        return distance.get(distance.size() - 1);
+        return risk.get(cave.indexOf(end));
     }
 
-    public void initialise(List<RiskLevel> queue, List<Integer> distance, List<RiskLevel> path, RiskLevel start) {
-        for (RiskLevel riskLevel : riskLevelList) {
-            distance.add(1000000000);
-            path.add(null);
+    public void initialise(List<RiskLevel> cave, RiskLevel start, List<RiskLevel> queue, List<RiskLevel> predecesor, List<Integer> risk) {
+        for (RiskLevel riskLevel : cave) {
+            risk.add(-1);
+            predecesor.add(null);
+            queue.add(riskLevel);
         }
-        distance.set(riskLevelList.indexOf(start), 0);
-        queue.addAll(riskLevelList);
+        risk.set(0, 0);
     }
 
-    public void update_Distance(RiskLevel u, RiskLevel v, List<Integer> distance, List<RiskLevel> path) {
-        int alternative = distance.get(riskLevelList.indexOf(u)) + u.getValue();
-        if (alternative < distance.get(riskLevelList.indexOf(v))) {
-            distance.set(riskLevelList.indexOf(v), alternative);
-            path.set(riskLevelList.indexOf(v), u);
-        }
-    }
-
-    public RiskLevel getRiskLevelWithLowestDistance(List<Integer> distance, List<RiskLevel> queue) {
-        int lowest = -1;
-        for (Integer thisDistance : distance) {
-            if (lowest == -1 || (lowest > thisDistance)) {
-                lowest = thisDistance;
+    public RiskLevel findLowest(List<RiskLevel> queue, List<Integer> risks) {
+        int currentLowest = -1;
+        RiskLevel result = null;
+        for (RiskLevel riskLevel : queue) {
+            if (risks.get(cave.indexOf(riskLevel)) < currentLowest && risks.get(cave.indexOf(riskLevel)) != -1 || currentLowest == -1) {
+                currentLowest = risks.get(cave.indexOf(riskLevel));
+                result = riskLevel;
             }
         }
-        return queue.get(distance.indexOf(lowest));
+        return result;
+    }
+
+    public void update_risk(RiskLevel v, RiskLevel u, List<Integer> risks, List<RiskLevel> predecesors) {
+        int alternative = risks.get(cave.indexOf(u)) + v.getRisk();
+        if (risks.get(cave.indexOf(v)) == -1 || risks.get(cave.indexOf(v)) > alternative) {
+            risks.set(cave.indexOf(v), alternative);
+            predecesors.set(cave.indexOf(v), u);
+        }
     }
 }

@@ -9,16 +9,17 @@ import java.util.stream.Stream;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class Day15Test {
-    @ParameterizedTest
+
     @MethodSource
-    void task1(String input, int expectedResult){
+    @ParameterizedTest
+    void task1(String input, int expectedResult) {
         Day15 testObject = new Day15(input);
-        int result= testObject.task1();
+        int result = testObject.solveTask1();
 
         assertEquals(expectedResult, result);
     }
 
-    static Stream<Arguments> task1(){
+    static Stream<Arguments> task1() {
         return Stream.of(
                 Arguments.of("1163751742\n" +
                         "1381373672\n" +
