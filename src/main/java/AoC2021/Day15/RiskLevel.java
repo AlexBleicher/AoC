@@ -8,6 +8,12 @@ public class RiskLevel {
     private int x;
     private int y;
     private int risk;
+    public int pathLength = 0;
+
+    public int getPathLength() {
+        return pathLength;
+    }
+
     public List<RiskLevel> neighbors = new ArrayList<>();
 
     public RiskLevel(int x, int y, int risk) {
@@ -27,4 +33,5 @@ public class RiskLevel {
     public int getRisk() {
         return risk;
     }
+
 }

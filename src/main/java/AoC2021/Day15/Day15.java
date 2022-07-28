@@ -1,7 +1,9 @@
 package AoC2021.Day15;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.PriorityQueue;
 
 public class Day15 {
 
@@ -19,48 +21,31 @@ public class Day15 {
     }
 
     public int calculateShortestWay(RiskLevel start, RiskLevel end) {
-        List<RiskLevel> queue = new ArrayList<>();
-        List<RiskLevel> predecesor = new ArrayList<>();
-        List<Integer> risk = new ArrayList<>();
-        initialise(cave, start, queue, predecesor, risk);
-        while (!queue.isEmpty()) {
-            RiskLevel u = findLowest(queue, risk);
-            queue.remove(queue.indexOf(u));
+        PriorityQueue<RiskLevel> queue = initialize();
+        RiskLevel u = start;
+        while(queue.contains(end)){
             for (RiskLevel neighbor : u.neighbors) {
-                if (queue.contains(neighbor)) {
-                    update_risk(neighbor, u, risk, predecesor);
+                int length = u.pathLength + neighbor.getRisk();
+                if(neighbor.getPathLength()>length){
+                    queue.remove(neighbor);
+                    neighbor.pathLength = length;
+                    queue.add(neighbor);
                 }
             }
+            queue.remove(u);
+            u = queue.peek();
         }
-        return risk.get(cave.indexOf(end));
+        return end.pathLength;
     }
 
-    public void initialise(List<RiskLevel> cave, RiskLevel start, List<RiskLevel> queue, List<RiskLevel> predecesor, List<Integer> risk) {
+    public PriorityQueue<RiskLevel> initialize(){
+        PriorityQueue<RiskLevel> q = new PriorityQueue<RiskLevel>(Comparator.comparingInt(RiskLevel::getPathLength));
         for (RiskLevel riskLevel : cave) {
-            risk.add(-1);
-            predecesor.add(null);
-            queue.add(riskLevel);
+            riskLevel.pathLength = Integer.MAX_VALUE;
+            q.add(riskLevel);
         }
-        risk.set(0, 0);
-    }
-
-    public RiskLevel findLowest(List<RiskLevel> queue, List<Integer> risks) {
-        int currentLowest = -1;
-        RiskLevel result = null;
-        for (RiskLevel riskLevel : queue) {
-            if (risks.get(cave.indexOf(riskLevel)) < currentLowest && risks.get(cave.indexOf(riskLevel)) != -1 || currentLowest == -1) {
-                currentLowest = risks.get(cave.indexOf(riskLevel));
-                result = riskLevel;
-            }
-        }
-        return result;
-    }
-
-    public void update_risk(RiskLevel v, RiskLevel u, List<Integer> risks, List<RiskLevel> predecesors) {
-        int alternative = risks.get(cave.indexOf(u)) + v.getRisk();
-        if (risks.get(cave.indexOf(v)) == -1 || risks.get(cave.indexOf(v)) > alternative) {
-            risks.set(cave.indexOf(v), alternative);
-            predecesors.set(cave.indexOf(v), u);
-        }
+        cave.get(0).pathLength=0;
+        q.remove(cave.get(0));
+        return q;
     }
 }
