@@ -45,13 +45,17 @@ public class Input {
             }
         }
         returnValue.addAll(risksToAdd);
+        List<RiskLevel> risksStillToCheck = new ArrayList<>();
+        risksStillToCheck.addAll(returnValue);
         for (RiskLevel riskLevel : returnValue) {
-            for (RiskLevel possibleNeighbor : returnValue) {
+            for (RiskLevel possibleNeighbor : risksStillToCheck) {
                 if (((possibleNeighbor.getX() == riskLevel.getX() - 1 || possibleNeighbor.getX() == riskLevel.getX() + 1) && possibleNeighbor.getY() == riskLevel.getY()) ||
                         (possibleNeighbor.getY() == riskLevel.getY() - 1 || possibleNeighbor.getY() == riskLevel.getY() + 1) && possibleNeighbor.getX() == riskLevel.getX()) {
                     riskLevel.neighbors.add(possibleNeighbor);
+                    possibleNeighbor.neighbors.add(riskLevel);
                 }
             }
+            risksStillToCheck.remove(risksStillToCheck.indexOf(riskLevel));
         }
         return returnValue;
     }
