@@ -23,14 +23,14 @@ public class Round {
         else if(yourChoice==Choice.Paper){
             score+=2;
         }
-        else if(yourChoice==Choice.Sissors){
+        else if(yourChoice==Choice.Scissors){
             score+=3;
         }
         score += roundOutcome();
     }
 
     private int roundOutcome(){
-        if((yourChoice==Choice.Rock&&opponentsChoice==Choice.Sissors)||(yourChoice==Choice.Paper&&opponentsChoice==Choice.Rock)||(yourChoice==Choice.Sissors&&opponentsChoice==Choice.Paper)){
+        if((yourChoice==Choice.Rock&&opponentsChoice==Choice.Scissors)||(yourChoice==Choice.Paper&&opponentsChoice==Choice.Rock)||(yourChoice==Choice.Scissors &&opponentsChoice==Choice.Paper)){
             return 6;
         }
         else if(yourChoice==opponentsChoice){
