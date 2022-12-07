@@ -1,6 +1,7 @@
 package AoC2022.Day7;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,14 +22,27 @@ public class Day7 {
                 .mapToLong(Directory::getSize).sum();
     }
 
+    public long task2() {
+        List<Directory> allDirs = new ArrayList<>();
+        allDirs.add(new Directory("/"));
+        fillAllDirs(allDirs);
+        long totalSpace = allDirs.get(0).getSize();
+        long spaceFree = 70000000 - totalSpace;
+        long spaceNeeded = 30000000 - spaceFree;
+        return allDirs.stream()
+                .filter(Directory -> Directory.getSize() >= spaceNeeded)
+                .min(Comparator.comparingLong(Directory::getSize))
+                .get()
+                .getSize();
+    }
+
     private void fillAllDirs(List<Directory> allDirs) {
         Directory currentDir = allDirs.get(0);
         for (Command command : commandList) {
             if (command.changesDir()) {
                 if (command.getContent().equals("..") && currentDir.getParent() != null) {
                     currentDir = currentDir.getParent();
-                }
-                else {
+                } else {
                     if (command.getContent().equals("/")) {
                         currentDir = allDirs.get(0);
                     } else {
