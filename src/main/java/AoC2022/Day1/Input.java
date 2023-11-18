@@ -1,9 +1,11 @@
 package AoC2022.Day1;
 
+import HelperClasses.InputParser;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class Input {
+public class Input extends InputParser {
 
     public String input;
 
