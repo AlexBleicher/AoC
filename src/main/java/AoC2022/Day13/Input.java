@@ -12,13 +12,14 @@ public class Input {
     }
 
     public List<Pair> parseInput() {
-        List<Pair> result = new ArrayList<>();
         String[] split = input.split("\n\n");
-        for (String s : split) {
-            String[] split1 = s.split("\n");
-            result.add(new Pair(new Packet(split1[0]), new Packet(split1[1])));
-
+        List<Pair> resultList = new ArrayList<>();
+        for (int i = 0; i < split.length; i++) {
+            String left = split[i].split("\n")[0];
+            String right = split[i].split("\n")[1];
+            Pair toAdd = new Pair(left, right);
+            resultList.add(toAdd);
         }
-        return result;
+        return resultList;
     }
 }

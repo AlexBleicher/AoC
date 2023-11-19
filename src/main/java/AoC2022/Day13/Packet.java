@@ -1,30 +1,30 @@
 package AoC2022.Day13;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Packet {
 
-    public List<Item> items = new ArrayList<>();
+    List<Object> items = new ArrayList<>();
 
     public Packet(String line) {
-        for (int i = 0; i < line.length(); i++) {
-            if (line.charAt(i) == '[') {
-                int countOpenBrackets = 1;
-                int indexStart = i;
-                while (countOpenBrackets > 0) {
-                    i++;
-                    if (line.charAt(i) == '[') {
-                        countOpenBrackets++;
-                    } else if (line.charAt(i) == ']') {
-                        countOpenBrackets--;
-                    }
-                }
-                Packet packetToAdd = new Packet(line.substring(indexStart + 1, i + 1));
-                items.add(new Item(false, 0, packetToAdd));
-            } else if (Character.isDigit(line.charAt(i))) {
-                items.add(new Item(true, Integer.parseInt(String.valueOf(line.charAt(i))), null));
+        JsonElement json = JsonParser.parseString(line);
+        items = parsePackets(json.getAsJsonArray());
+    }
+
+    private List<Object> parsePackets(JsonArray elements) {
+        List<Object> resultList = new ArrayList<>();
+        for (JsonElement jsonElement : elements) {
+            if (jsonElement.isJsonArray()) {
+                resultList.add(parsePackets(jsonElement.getAsJsonArray()));
+            } else {
+                resultList.add(jsonElement.getAsInt());
             }
         }
+        return resultList;
     }
 }

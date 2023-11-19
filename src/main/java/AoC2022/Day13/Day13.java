@@ -10,13 +10,13 @@ public class Day13 {
         this.pairs = new Input(input).parseInput();
     }
 
-    public long task1() {
-        long result = 0;
+    public int solveTask1() {
+        int sum = 0;
         for (int i = 0; i < pairs.size(); i++) {
-            if (pairs.get(i).packetsInOrder()) {
-                result += i + 1;
+            if (pairs.get(i).isRightOrder()) {
+                sum += i + 1;
             }
         }
-        return result;
+        return sum;
     }
 }

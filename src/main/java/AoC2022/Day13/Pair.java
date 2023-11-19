@@ -1,63 +1,47 @@
 package AoC2022.Day13;
 
+import java.util.List;
+
 public class Pair {
 
-    private Packet leftThisPair;
-    private Packet rightThisPair;
+    private Packet left;
+    private Packet right;
 
-    public Pair(Packet left, Packet right) {
-        this.leftThisPair = left;
-        this.rightThisPair = right;
+    public Pair(String leftString, String rightString) {
+        left = new Packet(leftString.substring(1));
+        right = new Packet(rightString.substring(1));
     }
 
-    private int leftComesBeforeRight(Packet left, Packet right) { //0 check next step; 1 left comes first; 2 right should come first
-        for (int i = 0; i < left.items.size(); i++) {
-            //Right ran out of items first
-            if (i > right.items.size() - 1) {
-                return 2;
-            }
-            Item itemLeft = left.items.get(i);
-            Item itemRight = right.items.get(i);
-            if (itemLeft.isInt) {
-                if (itemRight.isInt) {
-                    if (itemLeft.value < itemRight.value) {
-                        return 1;
-                    } else if (itemLeft.value > itemRight.value) {
-                        return 2;
-                    }
-                }
-                //Turn left item into list and compare
-                else {
-                    int result = leftComesBeforeRight(new Packet("" + itemLeft.value), itemRight.valuePackage);
-                    if (result == 1 || result == 2) {
-                        return result;
-                    }
-                }
-            } else {
-                //Turn right item into list and compare
-                if (itemRight.isInt) {
-                    int result = leftComesBeforeRight(itemLeft.valuePackage, new Packet("" + itemRight.value));
-                    if (result == 1 || result == 2) {
-                        return result;
-                    }
-                }
-                //Compare Packages
-                else {
-                    int result = leftComesBeforeRight(itemLeft.valuePackage, itemRight.valuePackage);
-                    if (result == 1 || result == 2) {
-                        return result;
-                    }
-                }
-            }
-        }
-        if (left.items.size() < right.items.size()) {
-            return 1;
-        }
-        return 0;
+    public boolean isRightOrder() {
+        return compare(left.items, right.items) < 0;
     }
 
-    public boolean packetsInOrder() {
-        boolean rightOrder = leftComesBeforeRight(leftThisPair, rightThisPair) == 1;
-        return rightOrder;
+    private int compare(Object leftItem, Object rightItem) {
+        if (leftItem instanceof Integer leftInt && rightItem instanceof Integer rightInt) {
+            return leftInt - rightInt;
+        }
+
+        if (leftItem instanceof List<?> leftList && rightItem instanceof List<?> rightList) {
+            if (leftList.isEmpty()) {
+                return rightList.isEmpty() ? 0 : -1;
+            }
+            int minSize = Math.min(leftList.size(), rightList.size());
+            for (int i = 0; i < minSize; i++) {
+                int compareRes = compare(leftList.get(i), rightList.get(i));
+                if (compareRes != 0) {
+                    return compareRes;
+                }
+            }
+            return leftList.size() - rightList.size();
+        }
+
+        if (leftItem instanceof Integer && rightItem instanceof List<?>) {
+            return compare(List.of(leftItem), rightItem);
+        }
+        if (leftItem instanceof List<?> && rightItem instanceof Integer) {
+            return compare(leftItem, List.of(rightItem));
+        }
+
+        throw new RuntimeException("Somethings not right here");
     }
 }

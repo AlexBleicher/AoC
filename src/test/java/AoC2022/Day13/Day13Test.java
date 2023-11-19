@@ -491,7 +491,7 @@ class Day13Test {
     @MethodSource
     public void task1(String input, int expected) {
         Day13 testObject = new Day13(input);
-        long result = testObject.task1();
+        long result = testObject.solveTask1();
 
         assertEquals(expected, result);
     }
