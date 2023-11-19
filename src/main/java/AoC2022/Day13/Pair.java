@@ -8,8 +8,8 @@ public class Pair {
     private Packet right;
 
     public Pair(String leftString, String rightString) {
-        left = new Packet(leftString.substring(1));
-        right = new Packet(rightString.substring(1));
+        left = new Packet(leftString);
+        right = new Packet(rightString);
     }
 
     public boolean isRightOrder() {
