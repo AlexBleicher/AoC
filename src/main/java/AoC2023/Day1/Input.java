@@ -1,13 +1,21 @@
 package AoC2023.Day1;
 
-import HelperClasses.InputParser;
-
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-public class Input extends InputParser {
+public class Input {
 
-    @Override
-    public <T> List<T> parseInput() {
-        return null;
+    String input;
+
+    public Input(String i) {
+        this.input = i;
+    }
+
+    public List<String> parseInput() {
+        String[] split = input.split("\n");
+        List<String> res = new ArrayList<>();
+        res.addAll(Arrays.asList(split));
+        return res;
     }
 }
