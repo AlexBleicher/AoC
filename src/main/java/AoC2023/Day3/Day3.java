@@ -96,35 +96,42 @@ public class Day3 {
                     String number1 = "";
                     String number2 = "";
                     if (x > 0 && Character.isDigit(line.charAt(x - 1))) { //Check left of *
-                        String[] split = line.substring(0, x).split(".");
-                        if (split.length > 0) {
-                            if (number1.isEmpty()) {
-                                number1 = split[split.length - 1];
-                            } else {
-                                number2 = split[split.length - 1];
-                            }
+
+                        String n = "";
+                        char cBefore = line.charAt(x - 1);
+                        if (Character.isDigit(cBefore)) {
+                            n += cBefore;
+                        }
+                        int i = 2;
+                        while ((x - i) >= 0 && Character.isDigit(line.charAt(x - i))) {
+                            cBefore = line.charAt(x - i);
+                            i++;
+                            n = cBefore + n;
+                        }
+                        if (number1.isEmpty()) {
+                            number1 = n;
                         } else {
-                            if (number1.isEmpty()) {
-                                number1 = line.substring(0, x);
-                            } else {
-                                number2 = line.substring(0, x);
-                            }
+                            number2 = n;
                         }
                     }
                     if (x < line.length() - 1 && Character.isDigit(line.charAt(x + 1))) {//Check right of *
-                        String[] split = line.substring(x + 1).split(".");
-                        if (split.length > 0) {
-                            if (number1.isEmpty()) {
-                                number1 = split[0];
-                            } else {
-                                number2 = split[0];
-                            }
+
+                        String n = "";
+                        char cAfter = line.charAt(x + 1);
+                        if (Character.isDigit(cAfter)) {
+                            n += cAfter;
+                        }
+                        int i = 2;
+                        cAfter = line.charAt(x + i);
+                        while ((x + i) < line.length() && Character.isDigit(cAfter)) {
+                            i++;
+                            n += cAfter;
+                            cAfter = line.charAt(x + i);
+                        }
+                        if (number1.isEmpty()) {
+                            number1 = n;
                         } else {
-                            if (number1.isEmpty()) {
-                                number1 = line.substring(x + 1);
-                            } else {
-                                number2 = line.substring(x + 1);
-                            }
+                            number2 = n;
                         }
                     }
                     //Check line before
@@ -145,18 +152,32 @@ public class Day3 {
                             cBefore = lineBefore.charAt(xBefore);
                             if (Character.isDigit(cBefore)) {
                                 n += cBefore;
+                            } else {
+                                if (!n.isEmpty()) {
+                                    if (number1.isEmpty()) {
+                                        number1 = n;
+                                    } else {
+                                        number2 = n;
+                                    }
+                                    n = "";
+                                }
                             }
                             xBefore++;
                             cBefore = lineBefore.charAt(xBefore);
-                            while (Character.isDigit(cBefore)) {
+                            while (xBefore < line.length() - 1 && Character.isDigit(cBefore)) {
                                 n += cBefore;
                                 xBefore++;
                                 cBefore = lineBefore.charAt(xBefore);
                             }
-                            if (number1.isEmpty()) {
-                                number1 = n;
-                            } else {
-                                number2 = n;
+                            if (Character.isDigit(cBefore)) {
+                                n += cBefore;
+                            }
+                            if (!n.isEmpty()) {
+                                if (number1.isEmpty()) {
+                                    number1 = n;
+                                } else {
+                                    number2 = n;
+                                }
                             }
                         }
                     }
@@ -178,18 +199,32 @@ public class Day3 {
                             cAfter = lineAfter.charAt(xAfter);
                             if (Character.isDigit(cAfter)) {
                                 n += cAfter;
+                            } else {
+                                if (!n.isEmpty()) {
+                                    if (number1.isEmpty()) {
+                                        number1 = n;
+                                    } else {
+                                        number2 = n;
+                                    }
+                                    n = "";
+                                }
                             }
                             xAfter++;
-                            cAfter = lineBefore.charAt(xAfter);
-                            while (Character.isDigit(cAfter)) {
+                            cAfter = lineAfter.charAt(xAfter);
+                            while (xAfter < line.length() - 1 && Character.isDigit(cAfter)) {
                                 n += cAfter;
                                 xAfter++;
                                 cAfter = lineAfter.charAt(xAfter);
                             }
-                            if (number1.isEmpty()) {
-                                number1 = n;
-                            } else {
-                                number2 = n;
+                            if (Character.isDigit(cAfter)) {
+                                n += cAfter;
+                            }
+                            if (!n.isEmpty()) {
+                                if (number1.isEmpty()) {
+                                    number1 = n;
+                                } else {
+                                    number2 = n;
+                                }
                             }
                         }
                     }
