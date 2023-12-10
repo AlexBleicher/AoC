@@ -19,7 +19,7 @@ public class Input {
             }
         }
         for (int y = 0; y < split.length; y++) {
-            for (int x = 0; x < split.length; x++) {
+            for (int x = 0; x < split[0].length(); x++) {
                 Pipe p = array[y][x];
                 if (y > 0) {
                     p.setNorth(array[y - 1][x]);
@@ -30,7 +30,7 @@ public class Input {
                 if (x > 0) {
                     p.setWest(array[y][x - 1]);
                 }
-                if (x < split.length - 1) {
+                if (x < split[0].length() - 1) {
                     p.setEast(array[y][x + 1]);
                 }
             }

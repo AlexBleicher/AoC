@@ -167,16 +167,44 @@ class Day10Test {
 
     static Stream<Arguments> task2() {
         return Stream.of(
-                Arguments.of("-L|F7\n" +
-                        "7S-7|\n" +
-                        "L|7||\n" +
-                        "-L-J|\n" +
-                        "L|-JF", 4),
-                Arguments.of("..F7.\n" +
-                        ".FJ|.\n" +
-                        "SJ.L7\n" +
-                        "|F--J\n" +
-                        "LJ...", 8),
+                Arguments.of("...........\n" +
+                        ".S-------7.\n" +
+                        ".|F-----7|.\n" +
+                        ".||.....||.\n" +
+                        ".||.....||.\n" +
+                        ".|L-7.F-J|.\n" +
+                        ".|..|.|..|.\n" +
+                        ".L--J.L--J.\n" +
+                        "...........", 4),
+                Arguments.of("..........\n" +
+                        ".S------7.\n" +
+                        ".|F----7|.\n" +
+                        ".||....||.\n" +
+                        ".||....||.\n" +
+                        ".|L-7F-J|.\n" +
+                        ".|..||..|.\n" +
+                        ".L--JL--J.\n" +
+                        "..........", 4),
+                Arguments.of(".F----7F7F7F7F-7....\n" +
+                        ".|F--7||||||||FJ....\n" +
+                        ".||.FJ||||||||L7....\n" +
+                        "FJL7L7LJLJ||LJ.L-7..\n" +
+                        "L--J.L7...LJS7F-7L7.\n" +
+                        "....F-J..F7FJ|L7L7L7\n" +
+                        "....L7.F7||L7|.L7L7|\n" +
+                        ".....|FJLJ|FJ|F7|.LJ\n" +
+                        "....FJL-7.||.||||...\n" +
+                        "....L---J.LJ.LJLJ...", 8),
+                Arguments.of("FF7FSF7F7F7F7F7F---7\n" +
+                        "L|LJ||||||||||||F--J\n" +
+                        "FL-7LJLJ||||||LJL-77\n" +
+                        "F--JF--7||LJLJ7F7FJ-\n" +
+                        "L---JF-JLJ.||-FJLJJ7\n" +
+                        "|F|F-JF---7F7-L7L|7|\n" +
+                        "|FFJF7L7F-JF7|JL---7\n" +
+                        "7-L-JL7||F7|L7F-7F7|\n" +
+                        "L.L7LFJ|||||FJL7||LJ\n" +
+                        "L7JLJL-JLJLJL--JLJ.L", 10),
                 Arguments.of("7-LJ.FF7J7-F-F--F7-.LL|7.LFJ--7F.J.L--FF-F77-F7|7F-F-777.JJ7|.J--F7JF-7-7-F-F-J.F-FF--7..|.LFJ77.77|F7FJ-77|F77FFL|7.|-7.|.7JFF--7|.|7-F--77\n" +
                         "|..L|LJJ|7-L7L77|JFFLL7|7|J|L7|7FLL.L-LF7||7LJ-J-J|JL|-F-J-F777LL||.F|.L7|JJL||.|-FJ7FL|F|.LLL77F-7LF|JJLJ-.F7-LJJ||-|F|FLL|-F|L||JLL7FJJ-L7\n" +
                         "|77||F.FF-J|FJF-J|F7FFJJJL-7L|L--JLF|7F|FJ|J7F7|L7|7JF.F77FJL-7|L|L77F--LF-FFJJ-LJF|J-LL|L|7FLL-7|-JLL.J.FF7J||LL777-FF7J-JJFFJFF.J7LFLJLF7|\n" +
@@ -316,7 +344,7 @@ class Day10Test {
                         "JLJ7.LLJJF-77|-L7LL7-.|FJ7L7LF7LF|LL7F|JF7|J-FL-7.JF-|-LJLJFJ||F-7|JJLL||FJF7.LLJJ.|L-JF7.F7L7L--J7FJ7F7FJF-7LJ-LJJ-J7F|LJ-FJ.L..F|J.L..J7FJ\n" +
                         "LF-F.JFF-F-LJJ-LF.J..FF7LFJ|.LL77-7L77J-|JJ7.J-LFF-7.7JLJ.F|FJ|L7LJ.F--JJL77L|-J|-FJ7|L77-F|7L-JJF|FL-LL7|JFF77FJJL--7-L-L-L.FLFJ|F.|.FL|.J.\n" +
                         "|.L77.L-7|||F|J.7-7F7||F-.LFJ7|L|J.LL7L7|-FLJJF-JLL.-777|FFLJL|FJ-LF-LL|.FLJ-|LFF7|.-J.7J-LJ|.7FL-JLJ-L|7JLFJ.|7L77||JFL-.|7.LJF7---7-FJ|FJ7\n" +
-                        "F|.LJ.|LFFJJ77-JJ-LL-JLF.FJ.LLF-JF77JL7-L-7JJ-JLLFJ.|.L--JJJ-LLJ.L-JL--L-JJJ-J--L-F.|L--7J.7J-LL...|J-L---L|J|JJ.LF-|.F-L.-J.L.L|.L.L-|.F|.J\n", 0)
+                        "F|.LJ.|LFFJJ77-JJ-LL-JLF.FJ.LLF-JF77JL7-L-7JJ-JLLFJ.|.L--JJJ-LLJ.L-JL--L-JJJ-J--L-F.|L--7J.7J-LL...|J-L---L|J|JJ.LF-|.F-L.-J.L.L|.L.L-|.F|.J\n", 355)
         );
     }
 
@@ -334,8 +362,7 @@ class Day10Test {
     void task2(String i, long expected) {
         Day10 test = new Day10(i);
         long actual = -1;
-        test.task2();
-        //actual = test.task2();
+        actual = test.task2();
         assertEquals(expected, actual);
     }
 }
