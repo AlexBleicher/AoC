@@ -22,11 +22,11 @@ void task1(std::vector<long> left, std::vector<long> right) {
 
 void task2(std::vector<long> left, std::vector<long> right) {
     long res = 0;
-    for(int i = 0; i < left.size(); i++) {
+    for (int i = 0; i < left.size(); i++) {
         long l = left[i];
         long amount = 0;
-        for(int j = 0; j < right.size(); j++) {
-            if(l == right[j]) {
+        for (int j = 0; j < right.size(); j++) {
+            if (l == right[j]) {
                 amount += 1;
             }
         }
