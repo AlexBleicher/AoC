@@ -14,24 +14,26 @@ struct Equation {
 };
 
 bool checkWithPlusNext(long long testValue, long long ca, const vector<long long> &numbers, int index, bool isTask1);
+
 bool checkWithConcatNext(long long testValue, long long ca, const vector<long long> &numbers, int index, bool isTask1);
+
 bool checkWithMulNext(long long testValue, long long ca, const vector<long long> &numbers, int index, bool isTask1);
 
 bool checkWithPlusNext(long long testValue, long long ca, const vector<long long> &numbers, int index, bool isTask1) {
     if (index < numbers.size()) {
         ca += numbers.at(index);
-        if(ca>testValue) {
+        if (ca > testValue) {
             return false;
         }
-        if(checkWithPlusNext(testValue, ca, numbers, index+1, isTask1)) {
+        if (checkWithPlusNext(testValue, ca, numbers, index + 1, isTask1)) {
             return true;
         }
-        if(!isTask1) {
-            if(checkWithConcatNext(testValue, ca, numbers, index+1, isTask1)) {
+        if (!isTask1) {
+            if (checkWithConcatNext(testValue, ca, numbers, index + 1, isTask1)) {
                 return true;
             }
         }
-        return checkWithMulNext(testValue, ca, numbers, index+1, isTask1);
+        return checkWithMulNext(testValue, ca, numbers, index + 1, isTask1);
     }
     return ca == testValue;
 }
@@ -39,18 +41,18 @@ bool checkWithPlusNext(long long testValue, long long ca, const vector<long long
 bool checkWithConcatNext(long long testValue, long long ca, const vector<long long> &numbers, int index, bool isTask1) {
     if (index < numbers.size()) {
         ca = stoll(to_string(ca) + to_string(numbers.at(index)));
-        if(ca>testValue) {
+        if (ca > testValue) {
             return false;
         }
-        if(checkWithPlusNext(testValue, ca, numbers, index+1, isTask1)) {
+        if (checkWithPlusNext(testValue, ca, numbers, index + 1, isTask1)) {
             return true;
         }
-        if(!isTask1) {
-            if(checkWithConcatNext(testValue, ca, numbers, index+1, isTask1)) {
+        if (!isTask1) {
+            if (checkWithConcatNext(testValue, ca, numbers, index + 1, isTask1)) {
                 return true;
             }
         }
-        return checkWithMulNext(testValue, ca, numbers, index+1, isTask1);
+        return checkWithMulNext(testValue, ca, numbers, index + 1, isTask1);
     }
     return ca == testValue;
 }
@@ -58,18 +60,18 @@ bool checkWithConcatNext(long long testValue, long long ca, const vector<long lo
 bool checkWithMulNext(long long testValue, long long ca, const vector<long long> &numbers, int index, bool isTask1) {
     if (index < numbers.size()) {
         ca *= numbers.at(index);
-        if(ca>testValue) {
+        if (ca > testValue) {
             return false;
         }
-        if(checkWithPlusNext(testValue, ca, numbers, index+1, isTask1)) {
+        if (checkWithPlusNext(testValue, ca, numbers, index + 1, isTask1)) {
             return true;
         }
-        if(!isTask1) {
-            if(checkWithConcatNext(testValue, ca, numbers, index+1, isTask1)) {
+        if (!isTask1) {
+            if (checkWithConcatNext(testValue, ca, numbers, index + 1, isTask1)) {
                 return true;
             }
         }
-        return checkWithMulNext(testValue, ca, numbers, index+1, isTask1);
+        return checkWithMulNext(testValue, ca, numbers, index + 1, isTask1);
     }
     return ca == testValue;
 }
@@ -89,14 +91,24 @@ bool checkIfPossible(long long testValue, vector<long long> numbers, bool isTask
 
 void task1(vector<Equation> equations) {
     long long res = 0;
-    for (const auto& equation: equations) {
-        if(checkIfPossible(equation.testValue, equation.numbers, true)) {
+    for (const auto &equation: equations) {
+        if (checkIfPossible(equation.testValue, equation.numbers, true)) {
             res += equation.testValue;
         }
     }
     cout << "Task 1: " << res << endl;
-
 }
+
+void task2(vector<Equation> equations) {
+    long long res = 0;
+    for (const auto &equation: equations) {
+        if (checkIfPossible(equation.testValue, equation.numbers, false)) {
+            res += equation.testValue;
+        }
+    }
+    cout << "Task 2: " << res << endl;
+}
+
 int main() {
     ifstream inputFile("C:/Users/ABleicher/IdeaProjects/AoC/src/main/AoC2024C++/Day7/Input");
     std::string line;
@@ -107,8 +119,7 @@ int main() {
         auto sepIndex = line.find(':');
         try {
             e->testValue = stoll(line.substr(0, sepIndex));
-        }
-        catch(out_of_range) {
+        } catch (out_of_range) {
             cerr << "Invalid input" << endl;
         }
         auto numbersString = line.substr(sepIndex + 1, line.length());
@@ -119,8 +130,7 @@ int main() {
             if (!into.empty()) {
                 try {
                     numbers.push_back(stoll(into));
-                }
-                catch(out_of_range) {
+                } catch (out_of_range) {
                     cerr << "Error in line " << line;
                 }
             }
@@ -131,7 +141,7 @@ int main() {
     inputFile.close();
 
     task1(equations);
-    //task2(input);
+    task2(equations);
     for (auto &equation: equations) {
         delete &equation;
     }
