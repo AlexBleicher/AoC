@@ -142,8 +142,8 @@ int main() {
 
     task1(equations);
     task2(equations);
-    for (auto &equation: equations) {
-        delete &equation;
+    for (auto equation: equations) {
+        delete equation;
     }
     return 0;
 }
