@@ -62,7 +62,7 @@ public class DiophantEquation {
         this.yres = yres;
     }
 
-    public long calculateEquation() {
+    /*public long calculateEquation() {
         long gcd = gcdExtended(x1, x2);
         if (xres % gcd != 0) {
             return -1;
@@ -72,28 +72,36 @@ public class DiophantEquation {
             long solutionX1 = k1 * (xres / gcd);
             long solutionX2 = k2 * (xres / gcd);
             long c = solutionX2 / vecX2ToAdd;
-            c++;
+            if(c<0){
+                c--;
+            }
+            else {
+                c++;
+            }
             solutionX1 = solutionX1 + (-c * vecX1ToAdd);
             solutionX2 = solutionX2 + (-c * vecX2ToAdd);
-            List<List<Long>> allPossibleSolutionsWithBothPositive = new ArrayList<>();
+            List<List<Long>> allPossibleForBoth = new ArrayList<>();
             List<Long> solutionList = new ArrayList<>();
             solutionList.add(solutionX1);
             solutionList.add(solutionX2);
-            allPossibleSolutionsWithBothPositive.add(solutionList);
-            while ((solutionX1 + (-1 * vecX1ToAdd) >= 0) && (solutionX2 + (-1 * vecX2ToAdd) >= 0)) {
+            if(solutionX1 * y1 + solutionX2 *y2 == yres) {
+                allPossibleForBoth.add(solutionList);
+            }
+            int stepWidth = 1;
+            int i=1;
+            while ((solutionX1 + (-1*stepWidth * vecX1ToAdd) >= 0) && (solutionX2 + (-1*stepWidth * vecX2ToAdd) >= 0)) {
+
                 solutionX1 = solutionX1 + (-1 * vecX1ToAdd);
                 solutionX2 = solutionX2 + (-1 * vecX2ToAdd);
                 solutionList = new ArrayList<>();
                 solutionList.add(solutionX1);
                 solutionList.add(solutionX2);
-                allPossibleSolutionsWithBothPositive.add(solutionList);
-            }
-            List<List<Long>> allPossibleForBoth = new ArrayList<>();
-            for (List<Long> list : allPossibleSolutionsWithBothPositive) {
-                Long solX1 = list.get(0);
-                Long solX2 = list.get(1);
-                if (solX1 * y1 + solX2 * y2 == yres) {
-                    allPossibleForBoth.add(list);
+                i++;
+                if(solutionX1 * y1 + solutionX2 *y2 == yres) {
+                    if(stepWidth==1) {
+                        stepWidth = i;
+                    }
+                    allPossibleForBoth.add(solutionList);
                 }
             }
             if (allPossibleForBoth.isEmpty()) {
@@ -107,7 +115,7 @@ public class DiophantEquation {
             }
             return currentSmallest.get(0) * 3 + currentSmallest.get(1);
         }
-    }
+    }*/
 
     private long gcdExtended(long a, long b) {
         if (b == 0) {
@@ -143,5 +151,23 @@ public class DiophantEquation {
             }
         }
         return -1;
+    }
+
+    public long solveWithEquation() {
+        long detA = determinante();
+        if (detA == 0) {
+            return -1;
+        }
+        long a = Math.floorDiv((Math.multiplyExact(y2, xres) - Math.multiplyExact(x2, yres)), (Math.multiplyExact(x1, y2) - Math.multiplyExact(y1, x2)));
+        long b = Math.floorDiv((Math.multiplyExact(-y1, xres) + Math.multiplyExact(x1, yres)),(Math.multiplyExact(x1, y2) - Math.multiplyExact(y1, x2)));
+        long proof1 = Math.addExact(Math.multiplyExact(a, x1), Math.multiplyExact(b, x2));
+        long proof2 = Math.multiplyExact(a, y1) + Math.multiplyExact(b, y2);
+        if(proof1==xres && proof2==yres)
+                return a * 3 + b;
+        return -1;
+    }
+
+    private long determinante() {
+        return x1 * y2 - x2 * y1;
     }
 }
