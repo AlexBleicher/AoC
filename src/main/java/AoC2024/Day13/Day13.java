@@ -24,10 +24,10 @@ public class Day13 {
     public long task2() {
         long tokens = 0;
         for (DiophantEquation equation : equations) {
-            //equation.setXres(equation.getXres()+10000000000000L);
-            //equation.setYres(equation.getYres()+10000000000000L);
-            long l = equation.calculateEquation();
-            long l2 = equation.tryEverythingUnder100();
+            equation.setXres(equation.getXres()+10000000000000L);
+            equation.setYres(equation.getYres()+10000000000000L);
+            long l = equation.solveWithEquation();
+            //long l2 = equation.tryEverythingUnder100();
             if (l > 0) {
                 tokens += l;
             }
