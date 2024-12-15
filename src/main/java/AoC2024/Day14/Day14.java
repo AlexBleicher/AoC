@@ -93,6 +93,22 @@ public class Day14 {
                 }
             }
             if (!hasOverlap) {
+                for (int y = 0; y <= borderDown; y++) {
+                    String line = "";
+                    for (int x = 0; x <= borderRight; x++) {
+                        boolean foundRobot = false;
+                        for (Robot robot : robots) {
+                            if (robot.getCurrentX() == x && robot.getCurrentY() == y && !foundRobot) {
+                                line += "r";
+                                foundRobot = true;
+                            }
+                        }
+                        if (!foundRobot) {
+                            line += ".";
+                        }
+                    }
+                    System.out.println(line);
+                }
                 return seconds;
             }
         }
