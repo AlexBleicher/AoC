@@ -21,4 +21,28 @@ public class Day1 {
         }
         return res;
     }
+
+    public int task2() {
+        int currentValue = 50;
+        int res = 0;
+        for (Integer turn : turns) {
+            if (turn > 0) {
+                for (Integer i = 0; i < turn; i++) {
+                    currentValue = (currentValue + 1) % 100;
+                    if(currentValue==0){
+                        res++;
+                    }
+                }
+            }
+            else{
+                for (Integer i = turn; i < 0; i++) {
+                    currentValue = (currentValue - 1) % 100;
+                    if(currentValue==0){
+                        res++;
+                    }
+                }
+            }
+        }
+        return res;
+    }
 }
