@@ -35,4 +35,28 @@ public class Day2 {
         }
         return invalidIDs.stream().mapToLong(Long::longValue).sum();
     }
+
+    public long task2() {
+        List<Long> invalidIDs = new ArrayList<>();
+        for (List<Long> idRange : idRanges) {
+            for (Long l : idRange) {
+                String string = l.toString();
+                boolean possiblyInvalid = false;
+                for (int i = 0; i < string.length() / 2 && !possiblyInvalid; i++) {
+                    String currentSequenceToCheck = string.substring(0, i + 1);
+                    String concatString = currentSequenceToCheck;
+                    while (concatString.length() < string.length()) {
+                        concatString = concatString.concat(currentSequenceToCheck);
+                    }
+                    if (concatString.equals(string)) {
+                        possiblyInvalid = true;
+                    }
+                }
+                if (possiblyInvalid) {
+                    invalidIDs.add(l);
+                }
+            }
+        }
+        return invalidIDs.stream().mapToLong(Long::longValue).sum();
+    }
 }
