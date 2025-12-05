@@ -1,5 +1,7 @@
 package AoC2025.Day5;
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class Day5 {
@@ -32,18 +34,41 @@ public class Day5 {
 
     public long task2() {
         long res = 0;
-        Long begin = freshIds.stream().sorted().toList().get(0);
-        Long end = freshIds.stream().sorted().toList().get(freshIds.size() - 1);
-        for (long id = begin; id <= end; id++) {
-            boolean foundInFresh = false;
-            for (int i = 0; i < freshIds.size() && !foundInFresh; i++) {
-                long currentRangeBegin = freshIds.get(i);
-                long currentRangeEnd = freshIds.get(++i);
-                if (id >= currentRangeBegin && id <= currentRangeEnd) {
-                    foundInFresh = true;
-                    res++;
+        List<Tuple> tuples = new ArrayList<>();
+        int ind = 0;
+        for (int i = 0; i < freshIds.size(); i++) {
+            if (i % 2 == 0) {
+                Tuple t = new Tuple();
+                t.setStart(freshIds.get(i));
+                tuples.add(t);
+            } else {
+                Tuple t = tuples.get(ind);
+                t.setEnd(freshIds.get(i));
+                ind++;
+            }
+        }
+        while (!tuples.isEmpty()) {
+            List<Tuple> tuplesSortedSmall = tuples.stream().sorted(Comparator.comparingLong(Tuple::getStart)).toList();
+            long currentEnd = tuplesSortedSmall.get(0).getEnd();
+            List<Tuple> tuplesUsed = new ArrayList<>();
+            tuplesUsed.add(tuplesSortedSmall.get(0));
+            int index = 0;
+            boolean stop = false;
+            while (index < (tuplesSortedSmall.size() - 1) && !stop) {
+                long start = tuplesSortedSmall.get(index + 1).getStart();
+                if (start > currentEnd) {
+                    stop = true;
+                } else {
+                    Tuple e = tuplesSortedSmall.get(index + 1);
+                    tuplesUsed.add(e);
+                    if (e.getEnd() > currentEnd) {
+                        currentEnd = e.getEnd();
+                    }
+                    index++;
                 }
             }
+            res += (currentEnd + 1 - tuplesSortedSmall.get(0).getStart());
+            tuples.removeAll(tuplesUsed);
         }
         return res;
     }
