@@ -1,0 +1,50 @@
+package AoC2025.Day5;
+
+import java.util.List;
+
+public class Day5 {
+
+    private List<Long> freshIds;
+    private List<Long> ids;
+
+    public Day5(String i) {
+        Input in = new Input(i);
+        List<List<Long>> l = in.parseInput();
+        freshIds = l.get(0);
+        ids = l.get(1);
+    }
+
+    public long task1() {
+        long res = 0;
+        for (Long id : ids) {
+            boolean foundInFresh = false;
+            for (int i = 0; i < freshIds.size() && !foundInFresh; i++) {
+                long currentRangeBegin = freshIds.get(i);
+                long currentRangeEnd = freshIds.get(++i);
+                if (id >= currentRangeBegin && id <= currentRangeEnd) {
+                    foundInFresh = true;
+                    res++;
+                }
+            }
+        }
+        return res;
+    }
+
+    public long task2() {
+        long res = 0;
+        Long begin = freshIds.stream().sorted().toList().get(0);
+        Long end = freshIds.stream().sorted().toList().get(freshIds.size() - 1);
+        for (long id = begin; id <= end; id++) {
+            boolean foundInFresh = false;
+            for (int i = 0; i < freshIds.size() && !foundInFresh; i++) {
+                long currentRangeBegin = freshIds.get(i);
+                long currentRangeEnd = freshIds.get(++i);
+                if (id >= currentRangeBegin && id <= currentRangeEnd) {
+                    foundInFresh = true;
+                    res++;
+                }
+            }
+        }
+        return res;
+    }
+}
