@@ -1,0 +1,4 @@
+# ninja log v6
+4	229	7548642567449689	build.ninja	4eadf072bb5f6d6a
+5	524	7548394906652793	CMakeFiles/AoC.dir/src/main/AoC2024C++/Day1/Day1.cpp.obj	e807798395d1e12a
+6	544	7548394251331982	CMakeFiles/AoC.dir/src/main/AoC2024C++/Day2/Day2.cpp.obj	7dc2d8fad8c0257c
